@@ -36,9 +36,9 @@ Usage
 Example
 -------
 
-One example is provided in the form of ``example_bibliography_input.docx`` which has an ("unlinked") Zotero-formatted bibliography. Using the present ``docx_text2link``, the DOIs have been converted to hyperlinks. The result is in ``example_bibliography_input.docx``.
+One example is provided in the form of ``example_bibliography_input.docx`` which has an ("unlinked") Zotero-formatted bibliography. Using the present ``docx_text2link``, the DOIs have been converted to hyperlinks. The result of running the script is in ``example_bibliography_output.docx``.
 
-The input and output are also provided as PDF so that you can have a look directly.
+The example input and output are also provided as PDF so that you can see the effect of the script directly by opening these documents in Github.
 
 
 
