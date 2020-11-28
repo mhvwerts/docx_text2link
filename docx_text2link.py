@@ -59,6 +59,8 @@ outfpn = sys.argv[2]
 #############################################
 
 # configurable parameters (#TODO: configuration file/CL options)
+# refmarker = '\[\d*\].*'  # regexp to recognize a bibliography item: "[decimal number]"
+refmarker = '\[\d.*'  # regexp to recognize a bibliography item: "[decimal"
 doistr = 'DOI:' #pre-fix to be recognised for link creation
 urlbase = 'https://dx.doi.org/' #pre-fix for assembling link
 linkrgb = '0563C1' #colour of links
@@ -149,7 +151,7 @@ d = docx.Document(fpname)
 # the search expression may need to be changed for different use cases
 # using regexp (import re)
 # use match to match at start of text
-rex = re.compile('\[\d*\].*'+doistr)
+rex = re.compile(refmarker+doistr)
 psels = []
 for p in d.paragraphs:
     txt = p.text
@@ -163,21 +165,31 @@ print('=================')
 for p in psels:
     print(p.text)
 
+
+print('')
+print('==========')
+print('PROCESSING')
+print('==========')
+
 # now in each selected paragraph, apply magic
 for p in psels:
     irdoi = 0
     rdoifound = False
     # The following loop will bug if doistr is not present!
     # (but it should be present after correct selection)
-    # Another unhandled case: (#TODO)
-    # When the 'doistr' is distributed over several 'runs'.
+    #
+    # If no doistr found, then the reference is just skipped
+    #
+    # Unhandled case: 
+    # When the 'doistr' is distributed over several 'runs',
+    # then it cannot be found using the present algorithm.
     # This may happen because of Word autoformatting.
     # For now, such errors should be prevented by correcting
     # the formatting within the document (select, cut, and paste
     # as plain text) 
     #TODO: use exception handling, report and ignore any offending
     # occurrences
-    while (not rdoifound):
+    while (not rdoifound) and (irdoi<len(p.runs)):
         r = p.runs[irdoi]
         ixdoi = r.text.find(doistr)
         if (ixdoi>=0):
@@ -197,6 +209,8 @@ for p in psels:
         url = urlbase+txt2
         add_hyperlink_into_run(p, rnew, url)
         r.text = txt1
+    else:
+        print('skipping 1 DOI reference...')
 
 # inspect selected paragraphs before processing
 print('')

@@ -32,6 +32,9 @@ Usage
    python3 docx_text2link.py <name of input file> <name of output file>
 
 
+Only one DOI per paragraph is processed. Each DOI needs to be in a separate paragraph. It may be necessary to fine-tune the script by editing it to suit your specific use case.
+
+
 -------
 Example
 -------
@@ -43,10 +46,12 @@ The input and output are also provided as PDF so that you can have a look direct
 
 
 ------------
-Some details
+Installation
 ------------
 
-The script relies on `python-docx`_ (we used 0.8.10), which needs to be installed first.
+There is no specific installation procedure. The script is copied into the directory with the document to be processed, and then run by calling the ``python3`` interpreter
+
+The script, however, relies on `python-docx`_ (we used 0.8.10), which needs to be installed first.
 
 .. _python-docx: https://python-docx.readthedocs.io
 
@@ -55,6 +60,10 @@ The script relies on `python-docx`_ (we used 0.8.10), which needs to be installe
 .. _conda-forge: https://conda-forge.org/
 
 
+
+----------------
+Acknowledgements
+----------------
 
 
 Writing of this script was possible thanks to the following information:
